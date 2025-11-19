@@ -68,14 +68,16 @@ class Inventory_Manager:
         stockoutkost = 0
         aanhoudkost = 0
 
-        for product in demand:
+        for product in demand:  ##loopt over alle sleutels in dictionary demand
 
-            vraag = demand[product]
-            produkt = self.woordenboek[product]
+            vraag = demand[product]   #demand is een dictionary met de vraag per product.
+
+#demand[product] geeft de gevraagde hoeveelheid van dat product.
+            produkt = self.woordenboek[product]  #productobject met alle info erbij (holding cost, stockout penalty, batches, etc.).
             totaal = 0
 
             for k in range(len(produkt.batches)):
-                totaal += produkt.batches[k].quantity
+                totaal += produkt.batches[k].quantity #hvlh v batch k v produkt
 
             if totaal >= vraag:
                 holding_cost = produkt.holding_cost
@@ -130,4 +132,5 @@ class Inventory_Manager:
             for batch in self.woordenboek[product].batches:
                 resultaat += f"\t{batch}\n"
             resultaat += "\n"
+
         return resultaat
